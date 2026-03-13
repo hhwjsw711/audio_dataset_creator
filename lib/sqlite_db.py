@@ -32,7 +32,7 @@ class SQLiteDBHelper:
                 print("Required tables do not exist. Executing SQL script to create them...")
                 
                 # Read and execute the entire SQL file
-                with open(self.sql_file, 'r') as f:
+                with open(self.sql_file, 'r', encoding='utf-8') as f:
                     sql_script = f.read()
                 self.cursor.executescript(sql_script)
                 self.connection.commit()

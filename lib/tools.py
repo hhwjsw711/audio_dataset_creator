@@ -152,11 +152,40 @@ def add_dataset(fields):
 
 def add_speaker(fields):
     name = fields.get('speaker')
-    my_dict = {
-        "name": name
-    }
-    db.insert('speaker',my_dict)
-    return True
+    age = fields.get('age')
+    gender = fields.get('gender')
+    accent = fields.get('accent')
+    
+    my_dict = {"name": name}
+    if age:
+        my_dict['age'] = int(age)
+    if gender:
+        my_dict['gender'] = gender
+    if accent:
+        my_dict['accent'] = accent
+    
+    db = get_db()
+    db.insert('speaker', my_dict)
+
+def update_speaker(fields):
+    db = get_db()
+    speaker_id = fields.get('id')
+    name = fields.get('name')
+    age = fields.get('age')
+    gender = fields.get('gender')
+    accent = fields.get('accent')
+    
+    data = {}
+    if name:
+        data['name'] = name
+    if age:
+        data['age'] = int(age)
+    if gender:
+        data['gender'] = gender
+    if accent:
+        data['accent'] = accent
+    
+    db.update('speaker', data, 'id = ?', (int(speaker_id),))
 
 def update_sentance(fields):
     speaker = fields.get('speaker')
@@ -197,12 +226,17 @@ def export_table_to_csv(fields):
         sub_dataset = fields.get('subDataset')
         dataset_id = int(fields.get('datasetId'))
         dataset_name = fields.get('datasetName')
+        speaker_id = fields.get('speakerId')
         # Query to fetch all data from the table
-        query = f"SELECT 'audio/' || file AS file, transcription, end_time as duration, sp.name as speaker, emotion FROM sentence,speaker sp WHERE sp.id = speaker AND dataset = {dataset_id} AND sub_dataset = '{sub_dataset}' and recorded = 1"
+        query = f"SELECT 'audio/' || file AS file, transcription, end_time as duration, sp.name as speaker, sp.age, sp.gender, sp.accent, emotion FROM sentence,speaker sp WHERE sp.id = speaker AND dataset = {dataset_id} AND sub_dataset = '{sub_dataset}' and recorded = 1"
+
+        if speaker_id and speaker_id != '-1':
+            query += f" AND speaker = {int(speaker_id)}"
+
         rs = db.execute_query(query)
 
         # Fetch column names
-        columns = ["file", "transcription", "duration", "speaker", "emotion"]
+        columns = ["file", "transcription", "duration", "speaker", "age", "gender", "accent", "emotion"]
 
         # Open the CSV file for writing
         output_folder = PROJECTS_DIR + "/"  + dataset_name  + "/" + sub_dataset
@@ -367,3 +401,4 @@ def get_content_type( file_path):
         return 'image/svg+xml'   # MIME type for WAV files
     else:
         return 'application/octet-stream'
+    

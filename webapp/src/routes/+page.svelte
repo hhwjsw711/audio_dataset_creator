@@ -324,6 +324,7 @@
     formData.append("datasetId", dataset.id.toString());
     formData.append("subDataset", subDataset ?? "");
     formData.append("datasetName", dataset.name);
+    formData.append("speakerId", exportSpeakerId);
 
     fetch(`${BACKEND}/export_dataset`, {
       method: "POST",
@@ -343,24 +344,15 @@
     newSentance = "";
   }
 
-  const emotionLabels: Record<string, string> = {
-    happy: "开心",
-    sad: "悲伤",
-    angry: "愤怒",
-    fearful: "恐惧",
-    surprised: "惊讶",
-    disgusted: "厌恶",
-    neutral: "中性"
-  };
-
   let emotions = Object.entries(Emotion).map((emotion) => {
     return {
       value: emotion[1],
-      label: emotionLabels[emotion[1]] || emotion[1],
+      label: emotion[1],
       icon: emotion[1],
     };
   });
   let speakers: Entity[] = [];
+  let exportSpeakerId: string = "-1";
   function getSpeaker() {
     speakersStore.subscribe((store: Speaker[]) => {
       try {
@@ -422,6 +414,18 @@
           <div class="flex place-items-center">数据集:</div>
           <div class="flex place-items-center pl-2">
             <DropDown onDatasetSelected={setCurrentDataset}></DropDown>
+          </div>
+          <div class="flex place-items-center pl-2">
+            <select
+              bind:value={exportSpeakerId}
+              class:hidden={!subDataset}
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5"
+            >
+              <option value="-1">全部说话人</option>
+              {#each speakers as speaker}
+                <option value={speaker.value}>{speaker.label}</option>
+              {/each}
+            </select>
           </div>
           <div class="flex place-items-center pl-2">
             <button
@@ -682,7 +686,7 @@
                       }}
                     ></EntitiesList>
                     <p class="text-gray-700 capitalize">
-                      {emotionLabels[sentence.emotion] || sentence.emotion}
+                      {sentence.emotion}
                     </p>
                   </div>
                 </td>

@@ -47,13 +47,13 @@ export enum SubDataSet {
 }
 
 export enum Emotion {
-  HAPPY = "happy",
-  SAD = "sad",
-  ANGRY = "angry",
-  FEARFUL = "fearful",
-  SURPRISED = "surprised",
-  DISGUSTED = "disgusted",
-  NEUTRAL = "neutral"
+  HAPPY = "开心",
+  SAD = "悲伤",
+  ANGRY = "愤怒",
+  FEARFUL = "恐惧",
+  SURPRISED = "惊讶",
+  DISGUSTED = "厌恶",
+  NEUTRAL = "中性"
 }
 
 export interface Entity {
@@ -65,6 +65,9 @@ export interface Entity {
 export interface Speaker {
   id: number;
   name: string;
+  age?: number;
+  gender?: string;
+  accent?: string;
 }
 
 export interface TranscriptionFile {

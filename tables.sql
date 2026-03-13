@@ -7,12 +7,15 @@ CREATE TABLE dataset (
 );
 
 CREATE TABLE speaker (
-    id   INTEGER NOT NULL
-                 PRIMARY KEY AUTOINCREMENT,
-    name TEXT    NOT NULL
+    id      INTEGER NOT NULL
+                    PRIMARY KEY AUTOINCREMENT,
+    name    TEXT    NOT NULL,
+    age     INTEGER,
+    gender  TEXT,
+    accent  TEXT
 );
 
-insert into speaker ("name") values ("default");
+insert into speaker ("name") values ("默认");
 
 CREATE TABLE sentence (
     id            INTEGER     PRIMARY KEY AUTOINCREMENT
