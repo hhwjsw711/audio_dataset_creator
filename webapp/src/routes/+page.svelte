@@ -117,7 +117,7 @@
         });
     } catch (error) {
       showAlertStore.set({
-        msg: "Please allow access to the microphone.",
+        msg: "请允许访问麦克风。",
         success: false,
       });
     }
@@ -197,7 +197,7 @@
           selectedSentence.recorded = false;
         } else {
           showAlertStore.set({
-            msg: "Failed to remove the recording.",
+            msg: "删除录音失败。",
             success: false,
           });
         }
@@ -235,7 +235,7 @@
           selectedSentences = [];
         } else {
           showAlertStore.set({
-            msg: "Failed to delete the selected sentences.",
+            msg: "删除选中的句子失败。",
             success: false,
           });
         }
@@ -259,13 +259,13 @@
         if (result.status === "success") {
           sentence.recorded = true;
           showAlertStore.set({
-            msg: "Please allow access to the microphone.",
+            msg: "录音保存成功。",
             success: true,
           });
           getSentences(currentSentenceStatus);
         } else {
           showAlertStore.set({
-            msg: "Failed to save the recording.",
+            msg: "保存录音失败。",
             success: false,
           });
         }
@@ -311,7 +311,7 @@
           getSentences(currentSentenceStatus);
         } else {
           showAlertStore.set({
-            msg: "Failed to add the sentance.",
+            msg: "添加句子失败。",
             success: false,
           });
         }
@@ -335,7 +335,7 @@
           getSentences(currentSentenceStatus);
         } else {
           showAlertStore.set({
-            msg: "Failed to export the dataset.",
+            msg: "导出数据集失败。",
             success: false,
           });
         }
@@ -343,10 +343,20 @@
     newSentance = "";
   }
 
+  const emotionLabels: Record<string, string> = {
+    happy: "开心",
+    sad: "悲伤",
+    angry: "愤怒",
+    fearful: "恐惧",
+    surprised: "惊讶",
+    disgusted: "厌恶",
+    neutral: "中性"
+  };
+
   let emotions = Object.entries(Emotion).map((emotion) => {
     return {
       value: emotion[1],
-      label: emotion[1],
+      label: emotionLabels[emotion[1]] || emotion[1],
       icon: emotion[1],
     };
   });
@@ -384,7 +394,7 @@
           getSentences(currentSentenceStatus);
         } else {
           showAlertStore.set({
-            msg: "Failed to update the sentance.",
+            msg: "更新句子失败。",
             success: false,
           });
         }
@@ -393,7 +403,7 @@
 </script>
 
 <svelte:head>
-  <title>Audio DataSet Manager</title>
+  <title>音频数据集管理器</title>
 </svelte:head>
 <ConfirmationBox
   show={showConfirmationBox}
@@ -409,16 +419,16 @@
         <div
           class="flex focus:outline-none text-base sm:text-lg md:text-xl lg:text-2xl font-bold leading-normal text-gray-800"
         >
-          <div class="flex place-items-center">Dataset:</div>
+          <div class="flex place-items-center">数据集:</div>
           <div class="flex place-items-center pl-2">
             <DropDown onDatasetSelected={setCurrentDataset}></DropDown>
           </div>
           <div class="flex place-items-center pl-2">
             <button
-              aria-label="Export the dataset"
+              aria-label="导出数据集"
               on:click={exportDataset}
               class:hidden={!subDataset}
-              title="Export the dataset"
+              title="导出数据集"
             >
               <svg class=" w-6 h-6 text-gray-600">
                 <use href="icons.svg#icon-export"></use>
@@ -434,7 +444,7 @@
         <label
           for="nexwSentance"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Add your sentence and hit enter</label
+          >输入句子后按回车键添加</label
         >
         <input
           type="text"
@@ -447,7 +457,7 @@
           id="newSentance"
           aria-describedby="helper-text-explanation"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Your sentence here..."
+          placeholder="在此输入句子..."
         />
       </form>
     </div>
@@ -466,7 +476,7 @@
             <div
               class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full"
             >
-              <p>All</p>
+              <p>全部</p>
             </div>
           </button>
           <button
@@ -482,7 +492,7 @@
             <div
               class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full"
             >
-              <p>Recoded</p>
+              <p>已录制</p>
             </div>
           </button>
           <button
@@ -498,13 +508,13 @@
             <div
               class="py-2 px-8 text-gray-600 hover:text-indigo-700 hover:bg-indigo-100 rounded-full"
             >
-              <p>Pending</p>
+              <p>待录制</p>
             </div>
           </button>
         </div>
         <div class="flex justify-end gap-4" class:hidden={!subDataset}>
           <EntitiesList
-            title="Set selection speaker"
+            title="设置选中项的说话人"
             icon="speaker"
             disabled={selectedSentences.length === 0}
             iconClass="w-4 h-4 text-white disabled:text-gray-400"
@@ -519,7 +529,7 @@
           ></EntitiesList>
 
           <EntitiesList
-            title="Set selection emotion"
+            title="设置选中项的情感"
             disabled={selectedSentences.length === 0}
             icon={Emotion.NEUTRAL}
             iconClass="w-4 h-4 text-white disabled:text-gray-400"
@@ -534,8 +544,8 @@
           ></EntitiesList>
 
           <button
-            aria-labelledby="Delete Selection"
-            title="Delete Selection"
+            aria-labelledby="删除选中项"
+            title="删除选中项"
             disabled={selectedSentences.length === 0}
             class:hidden={!subDataset}
             on:click={(event) => confirmRemoveRecording(selectedSentences)}
@@ -570,7 +580,7 @@
                       class="bg-gray-200 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center relative"
                     >
                       <input
-                        placeholder="checkbox"
+                        placeholder="复选框"
                         type="checkbox"
                         class="focus:opacity-100 checkbox opacity-0 absolute cursor-pointer w-full h-full"
                         value={sentence}
@@ -672,7 +682,7 @@
                       }}
                     ></EntitiesList>
                     <p class="text-gray-700 capitalize">
-                      {sentence.emotion}
+                      {emotionLabels[sentence.emotion] || sentence.emotion}
                     </p>
                   </div>
                 </td>
@@ -696,7 +706,7 @@
                     class:text-red-700={!sentence.recorded}
                     class:bg-green-100={sentence.recorded}
                     class:text-green-700={sentence.recorded}
-                    >{sentence.recorded ? "Recoded" : "Pending"}
+                    >{sentence.recorded ? "已录制" : "待录制"}
                   </button>
                 </td>
 
@@ -704,8 +714,8 @@
                   <button
                     class:hidden={sentence.isRecording}
                     on:click={(event) => startRecording(sentence)}
-                    aria-label="Microphone"
-                    title="Start recording"
+                    aria-label="麦克风"
+                    title="开始录制"
                   >
                     <svg class=" w-6 h-6 text-gray-600">
                       <use href="icons.svg#icon-mic"></use>
@@ -716,8 +726,8 @@
                     class:hidden={!sentence.isRecording}
                     on:click={(event) => stopRecording()}
                     class="mic-button p-2"
-                    aria-label="Microphone Disabled"
-                    title="Stop recording"
+                    aria-label="麦克风禁用"
+                    title="停止录制"
                   >
                     <svg class=" w-6 h-6 text-red-700">
                       <use href="icons.svg#icon-mic"></use>
@@ -725,8 +735,8 @@
                   </button>
                   <button
                     on:click={(event) => confirmRemoveRecording([sentence])}
-                    aria-label="Delete the sentence"
-                    title="Delete the sentence"
+                    aria-label="删除该句子"
+                    title="删除该句子"
                   >
                     <svg class=" w-6 h-6 text-red-700">
                       <use href="icons.svg#icon-trash"></use>
@@ -735,8 +745,8 @@
                   <button
                     class:hidden={!sentence.recorded}
                     on:click={(event) => confirmRemoveRecording(sentence)}
-                    aria-labelledby="Delete audio only"
-                    title="Delete audio only"
+                    aria-labelledby="仅删除音频"
+                    title="仅删除音频"
                   >
                     <svg class=" w-6 h-6 text-gray-700">
                       <use href="icons.svg#icon-wav"></use>
@@ -757,7 +767,7 @@
         <h4
           class="flex w-full justify-center text-lg font-semibold text-gray-800 dark:text-gray-300 pb-6"
         >
-          Subsets Manager
+          子集管理
         </h4>
 
         <div class="px-4">
@@ -780,7 +790,7 @@
       <h4
         class="flex w-full justify-center text-lg font-semibold text-gray-800 dark:text-gray-300 pb-6"
       >
-        Speakers Manager
+        说话人管理
       </h4>
 
       <SpeakersManager></SpeakersManager>

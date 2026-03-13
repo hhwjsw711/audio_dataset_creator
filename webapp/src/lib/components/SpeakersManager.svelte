@@ -42,7 +42,7 @@
           newSpeaker = "";
           getSpeaker();
         } else {
-          alert("Failed to save the speaker.");
+          alert("保存说话人失败。");
         }
       });
   }
@@ -61,7 +61,7 @@
           selectedSpeaker = null;
           getSpeaker();
         } else {
-          alert("Failed to delete the speaker.");
+          alert("删除说话人失败。");
         }
       });
   }
@@ -97,7 +97,7 @@
     id="newSpaker"
     aria-describedby="helper-text-explanation"
     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-    placeholder="Add spaker and hit enter..."
+    placeholder="输入说话人名称后按回车..."
   />
 </form>
 <div class="space-y-4 px-4 py-4">
@@ -111,8 +111,8 @@
         <button
           class="text-red-700 disabled:text-gray-400"
           disabled={speaker.id === 1}
-          aria-labelledby="Remove Speaker"
-          title="Remove Speaker"
+          aria-labelledby="移除说话人"
+          title="移除说话人"
           on:click={(event) => {
             selectedSpeaker = speaker;
             showConfirmationBox = true;

@@ -34,9 +34,9 @@
           </i>
         </div>
         <div class="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
-          <p class="font-bold">Warning!</p>
+          <p class="font-bold">警告!</p>
           <p class="text-sm text-gray-700 mt-1">
-            Are you sure you want to delete. This action cannot be undone.
+            确定要删除吗？此操作无法撤销。
           </p>
         </div>
       </div>
@@ -46,14 +46,14 @@
           id="confirm-delete-btn"
           class="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2"
         >
-          Delete
+          删除
         </button>
         <button
           on:click={reject}
           id="confirm-cancel-btn"
           class="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1"
         >
-          Cancel
+          取消
         </button>
       </div>
     </div>

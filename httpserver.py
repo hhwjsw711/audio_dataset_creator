@@ -2,7 +2,7 @@ import os
 import re
 import sys
 sys.path.insert(0, os.path.dirname(__file__))
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 from lib.tools import PROJECTS_DIR, add_dataset, add_speaker, createProjectStructure, delete_transcriptions, deleteDataset, deleteSpeaker, deleteSubDataset, export_table_to_csv, get_content_type, get_db, get_project_dir, import_transcriptions, list_directories, removeRecording, update_sentance, upload_audio
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
@@ -41,7 +41,8 @@ class SimpleHandler(BaseHTTPRequestHandler):
             else:
                 self.send_error(404, f"File not found: {self.path} {os.getcwd()}/{static_dir}")
         elif self.path.endswith('.wav'):
-            file_path = os.path.join(f"{os.getcwd()}/{get_project_dir()}", self.path.lstrip('/'))
+            decoded_path = unquote(self.path)
+            file_path = os.path.join(f"{os.getcwd()}/{get_project_dir()}", decoded_path.lstrip('/'))
             file_path = file_path.replace('\\', '/')
             if os.path.exists(file_path):
                 content_type = get_content_type(file_path)

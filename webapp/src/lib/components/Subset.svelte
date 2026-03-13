@@ -18,6 +18,12 @@
   let subDataSetEntries = Object.entries(SubDataSet);
   let colors = ["text-blue-600", "text-green-600", "text-red-600"];
 
+  const subDataSetLabels: Record<string, string> = {
+    train: "训练集",
+    test: "测试集",
+    validation: "验证集"
+  };
+
   let showConfirmationBox = false;
   let subDataSetToDelete: SubDataSet | null = null;
 
@@ -80,10 +86,10 @@
             subDataSet: sub_dataset,
           });
           counts[sub_dataset] = 0;
-          showAlertStore.set({ msg: "Sub dataset deleted.", success: true });
+          showAlertStore.set({ msg: "子数据集已删除。", success: true });
         } else {
           showAlertStore.set({
-            msg: "Failed to delete the sub dataset.",
+            msg: "删除子数据集失败。",
             success: true,
           });
         }
@@ -123,7 +129,7 @@
           </svg>
         </div>
         <!-- Text -->
-        <div class="flex-grow justify-start flex capitalize">{value}</div>
+        <div class="flex-grow justify-start flex capitalize">{subDataSetLabels[value] || value}</div>
         <!-- Badge -->
         <div
           class="bg-gray-200 text-gray-800 text-sm font-semibold rounded-full px-3 py-1"
@@ -136,9 +142,9 @@
           subDataSetToDelete = value;
           showConfirmationBox = true;
         }}
-        aria-label="Delete this sub dataset"
+        aria-label="删除此子数据集"
         class="pr-2"
-        title="Delete this sub dataset"
+        title="删除此子数据集"
       >
         <svg class=" w-5 h-5 text-red-700">
           <use href="icons.svg#icon-trash"></use>

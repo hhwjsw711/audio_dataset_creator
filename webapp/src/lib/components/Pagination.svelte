@@ -23,7 +23,7 @@
     on:click={previous}
     class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
   >
-    <span class="sr-only">Prev Page</span>
+    <span class="sr-only">上一页</span>
 
     <svg class=" w-4 h-4 text-gray-400">
       <use href="icons.svg#icon-previous"></use>
@@ -41,7 +41,7 @@
     on:click={next}
     class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
   >
-    <span class="sr-only">Next Page</span>
+    <span class="sr-only">下一页</span>
 
     <svg class=" w-4 h-4 text-gray-400">
       <use href="icons.svg#icon-next"></use>

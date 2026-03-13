@@ -42,7 +42,7 @@
     <button
       {disabled}
       {title}
-      aria-label="Open dataset list"
+      aria-label="打开数据集列表"
       class="{buttonClass}"
       on:click={() => (showMenu = !showMenu)}
     >

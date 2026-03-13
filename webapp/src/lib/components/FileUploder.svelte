@@ -135,7 +135,7 @@
         onFileUploded(true);
         transcriptionFiles = [];
         showAlertStore.set({
-          msg: "File imported.",
+          msg: "文件导入成功。",
           success: true,
         });
       });
@@ -159,7 +159,7 @@
       class="text-gray-400 font-semibold text-sm"
       on:click={() => document.getElementById("file-input")?.click()}
     >
-      Drag & Drop or <span class="text-[#007bff]">Choose file</span> to upload
+      拖放或<span class="text-[#007bff]">选择文件</span>上传
     </button>
     <input
       id="file-input"
@@ -168,7 +168,7 @@
       multiple
       on:change={handleFileInput}
     />
-    <p class="text-xs text-gray-400 mt-2">Only text files are Allowed.</p>
+    <p class="text-xs text-gray-400 mt-2">仅允许文本文件。</p>
   </div>
 
   {#if transcriptionFiles.length > 0}
@@ -181,7 +181,7 @@
                 title="({speakers.find(
                   (_speaker) =>
                     _speaker.value === (transcriptionFile.speaker ?? 0)
-                )?.label})Set selection speaker"
+                )?.label})设置说话人"
                 icon="speaker"
                 entities={speakers}
                 onEntitySelected={(entity: any) => {
@@ -190,7 +190,7 @@
               ></EntitiesList>
 
               <EntitiesList
-                title="Set selection emotion"
+                title="设置情感"
                 icon={transcriptionFile.emotion}
                 entities={emotions}
                 onEntitySelected={(entity: any) => {
@@ -204,7 +204,7 @@
             </div>
             <button
               on:click={() => removeFile(index)}
-              aria-labelledby="Remove Audio File"
+              aria-labelledby="移除音频文件"
             >
               <svg class=" w-5 h-5 text-red-700">
                 <use href="icons.svg#icon-trash"></use>
@@ -220,13 +220,13 @@
   <button
     type="button"
     class="w-full px-4 py-2 rounded-lg text-gray-800 text-sm border-none outline-none tracking-wide bg-gray-200 hover:bg-gray-300 active:bg-gray-200"
-    >Cancel</button
+    >取消</button
   >
   <button
     type="button"
     on:click={startUpload}
     class="w-full px-4 py-2 rounded-lg text-white text-sm border-none outline-none tracking-wide bg-blue-600 hover:bg-blue-700 active:bg-blue-600"
-    >Import</button
+    >导入</button
   >
 </div>
 

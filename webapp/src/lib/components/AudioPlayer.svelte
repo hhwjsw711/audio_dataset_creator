@@ -52,19 +52,19 @@
 <div>
   <button
     on:click={playAudio}
-    disabled={isPlaying || isPaused}
-    aria-label="Play Audio"
+    disabled={isPlaying}
+    aria-label="播放音频"
   >
     <svg class=" w-5 h-5">
       <use href="icons.svg#icon-play"></use>
     </svg>
   </button>
-  <button on:click={pauseAudio} disabled={!isPlaying} aria-label="Pause Audio">
+  <button on:click={pauseAudio} disabled={!isPlaying} aria-label="暂停音频">
     <svg class=" w-5 h-5">
       <use href="icons.svg#icon-pause"></use>
     </svg>
   </button>
-  <button on:click={stopAudio} disabled={!isPlaying} aria-label="Stop Audio">
+  <button on:click={stopAudio} disabled={!isPlaying && !isPaused} aria-label="停止音频">
     <svg class=" w-5 h-5">
       <use href="icons.svg#icon-stop"></use>
     </svg>

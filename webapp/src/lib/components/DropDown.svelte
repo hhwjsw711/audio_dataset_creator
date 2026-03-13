@@ -62,7 +62,7 @@
           newDatasetName = "";
           getDatasets();
         } else {
-          alert("Failed to save the recording.");
+          alert("保存数据集失败。");
         }
       });
   }
@@ -82,7 +82,7 @@
           sentencesStore.set({ count: 0, sentence: [], subDataSet: SubDataSet.TRAIN });
           getDatasets();
         } else {
-          alert("Failed to save the recording.");
+          alert("删除数据集失败。");
         }
       });
   }
@@ -111,13 +111,13 @@
 <div class="flex flex-col" on:blur={() => (showMenu = false)} bind:this={container}>
   <div class="relative flex items-center">
     <span class="text-gray-400 pr-4"
-      >{currentDataset?.name ?? "Select a Dataset"}</span
+      >{currentDataset?.name ?? "选择数据集"}</span
     >
 
     <button
       class="pt-1"
-      title="Open dataset list"
-      aria-label="Open dataset list"
+      title="打开数据集列表"
+      aria-label="打开数据集列表"
       on:click={() => (showMenu = !showMenu)}
     >
       <svg class="h-6 w-6 text-gray-500">
@@ -135,7 +135,7 @@
         <!-- Input -->
         <input
           type="text"
-          placeholder="Search or add dataset..."
+          placeholder="搜索或添加数据集..."
           bind:value={newDatasetName}
           class="w-full px-4 py-2 text-sm text-gray-600 focus:outline-none"
         />
@@ -144,8 +144,8 @@
         <button
           class="text-gray-400"
           on:click={addDataset}
-          aria-labelledby="Add dataset"
-          title="Add dataset"
+          aria-labelledby="添加数据集"
+          title="添加数据集"
         >
           <svg class="h-5 w-5 text-gray-400">
             <use href="icons.svg#icon-plus"></use>
@@ -180,8 +180,8 @@
               dataSetToDelete = dataset;
               showConfirmationBox = true;
             }}
-            aria-label="Delete this dataset"
-            title="Delete this dataset"
+            aria-label="删除此数据集"
+            title="删除此数据集"
             class="pr-2"
           >
             <svg class=" w-5 h-5 text-red-700">
